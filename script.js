@@ -1,10 +1,11 @@
-// Put your GitHub username here
+// GitHub Username Configuration
 const GITHUB_USERNAME = "tsiyonerku-rgb";
 
 async function fetchGitHubRepos() {
   const container = document.getElementById("repo-container");
 
   try {
+    // Fetch public repositories sorted by most recently updated
     const response = await fetch(
       `https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=6`
     );
@@ -14,9 +15,11 @@ async function fetchGitHubRepos() {
     }
 
     const repos = await response.json();
+    
+    // Filter out forks to only show your original work
     const originalRepos = repos.filter(repo => !repo.fork);
 
-    // Clear loading message
+    // Clear the initial loading message
     container.innerHTML = "";
 
     if (originalRepos.length === 0) {
@@ -24,6 +27,7 @@ async function fetchGitHubRepos() {
       return;
     }
 
+    // Generate HTML for each repository
     originalRepos.forEach(repo => {
       const card = document.createElement("div");
       card.className = "repo-card";
@@ -41,9 +45,10 @@ async function fetchGitHubRepos() {
       container.appendChild(card);
     });
   } catch (error) {
-    container.innerHTML = `<p class="status-msg">Failed to load repositories (${error.message}).</p>`;
+    // Display error message if the API call fails
+    container.innerHTML = `<p class="status-msg" style="color: #ef4444;">Failed to load repositories (${error.message}).</p>`;
   }
 }
 
-// Fetch repos once DOM is loaded
+// Execute the fetch function once the HTML document is fully loaded
 document.addEventListener("DOMContentLoaded", fetchGitHubRepos);
