@@ -22,7 +22,7 @@ How to Run
   1. Download or clone this repository:
     git clone https://github.com/tsiyonerku-rgb/final-project.git
   2. Open index.html in your browser.
-  3. 
+
 Show Your Own Repositories
   Change the username at the top of script.js:
 js:
